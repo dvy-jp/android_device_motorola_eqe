@@ -14,7 +14,6 @@ PRODUCT_PACKAGES += \
     vendor_super_fsg_mountpoint \
     vendor_super_modem_mountpoint
 
-PRODUCT_BUILD_SUPER_PARTITION := false
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 TARGET_RO_FILE_SYSTEM_TYPE ?= ext4
 
