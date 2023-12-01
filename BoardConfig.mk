@@ -175,6 +175,7 @@ BOARD_USES_METADATA_PARTITION := true
 
 # Partitions
 TARGET_RO_FILE_SYSTEM_TYPE ?= ext4
+BOARD_PRODUCTIMAGE_MINIMAL_PARTITION_RESERVED_SIZE := false
 ifneq ($(TARGET_RO_FILE_SYSTEM_TYPE),erofs)
 -include vendor/lineage/config/BoardConfigReservedSize.mk
 else
