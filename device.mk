@@ -209,25 +209,23 @@ PRODUCT_PACKAGES += \
     android.hardware.health-service.qti_recovery
 
 # Init
-PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
-
-PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom \
-    $(DEVICE_PATH)/rootdir/etc/fstab.qcom.zram:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom.zram \
-    $(DEVICE_PATH)/rootdir/etc/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc
-
-$(foreach f,$(wildcard $(DEVICE_PATH)/rootdir/etc/init/hw/*.rc),\
-        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/$(notdir $f)))
-$(foreach f,$(wildcard $(DEVICE_PATH)/rootdir/etc/init/*.rc),\
-        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_VENDOR)/etc/init/$(notdir $f)))
-$(foreach f,$(wildcard $(DEVICE_PATH)/rootdir/bin/*.sh),\
-        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_VENDOR)/bin/$(notdir $f)))
-
-$(foreach f,$(wildcard $(DEVICE_PATH)/rootdir/*.rc),\
-        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_ROOT)/$(notdir $f)))
-$(foreach f,$(wildcard $(DEVICE_PATH)/rootdir/system/bin/*.sh),\
-        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_SYSTEM)/bin/$(notdir $f)))
+PRODUCT_PACKAGES += \
+    init.mmi.bootanim.sh \
+    init.mmi.charge_only.rc \
+    init.mmi.chipset.rc \
+    init.mmi.overlay.rc \
+    init.mmi.rc \
+    init.qcom.rc \
+    init.qcom.recovery.rc \
+    init.qti.kernel.rc \
+    init.qti.qcv.rc \
+    init.system.qcom.rc \
+    init.target.rc \
+    ueventd.qcom.rc \
+    init.vendor.st21nfc.rc \
+    fstab.qcom \
+    fstab.qcom.vendor_ramdisk \
+    fstab.qcom.zram
 
 # IPACM
 PRODUCT_PACKAGES += \

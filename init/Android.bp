@@ -1,0 +1,110 @@
+//
+// Copyright (C) 2025 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// Init scripts
+sh_binary {
+    name: "init.mmi.bootanim.sh",
+    src: "bin/init.mmi.bootanim.sh",
+}
+
+// Init configuration files
+prebuilt_etc {
+    name: "init.mmi.charge_only.rc",
+    src: "etc/init.mmi.charge_only.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.mmi.chipset.rc",
+    src: "etc/init.mmi.chipset.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.mmi.overlay.rc",
+    src: "etc/init.mmi.overlay.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.mmi.rc",
+    src: "etc/init.mmi.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.qcom.rc",
+    src: "etc/init.qcom.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.qcom.recovery.rc",
+    src: "etc/init.qcom.recovery.rc",
+    sub_dir: "init",
+    recovery: true,
+}
+
+prebuilt_etc {
+    name: "init.qti.kernel.rc",
+    src: "etc/init.qti.kernel.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.qti.qcv.rc",
+    src: "etc/init.qti.qcv.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_root {
+    name: "init.system.qcom.rc",
+    filename: "init.qcom.rc",
+    src: "etc/init.system.qcom.rc",
+    install_in_root: true,
+}
+
+prebuilt_etc {
+    name: "init.target.rc",
+    src: "etc/init.target.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "ueventd.qcom.rc",
+    filename: "ueventd.rc",
+    src: "etc/ueventd.rc",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.vendor.st21nfc.rc",
+    src: "etc/init.vendor.st21nfc.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+// fstab
+prebuilt_etc {
+    name: "fstab.qcom",
+    src: "etc/fstab.qcom",
+    vendor: true,
+    vendor_ramdisk_available: true,
+}
+
+prebuilt_etc {
+    name: "fstab.qcom.zram",
+    src: "etc/fstab.qcom.zram",
+    vendor: true,
+}
