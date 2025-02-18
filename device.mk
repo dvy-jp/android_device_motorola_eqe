@@ -276,9 +276,10 @@ PRODUCT_PACKAGES += \
 
 # NFC
 PRODUCT_PACKAGES += \
+    android.hardware.nfc-service.st \
+    android.hardware.secure_element@1.2-service-gto \
     com.android.nfc_extras \
-    Tag \
-    nfc_nci.st21nfc.default
+    Tag
 
 # Permissions
 PRODUCT_COPY_FILES += \

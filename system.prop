@@ -54,8 +54,7 @@ ro.media.recorder-max-base-layer-fps=60
 persist.vendor.data.mode=concurrent
 
 # NFC
-init.svc.vendor.stflashtool=stopped
-ro.nfc.port=I2C
+persist.nfc_cfg.config_file_name=libnfc-nci-st.conf
 
 # Perf
 persist.device_config.runtime_native_boot.iorap_perfetto_enable=true

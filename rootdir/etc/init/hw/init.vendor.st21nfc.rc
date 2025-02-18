@@ -9,17 +9,30 @@ on early-boot
 	chown secure_element secure_element /dev/st54spi
 	chmod 0660 /dev/st54spi
 
-on property:ro.vendor.hw.nfc=true && property:persist.vendor.radio.multisim.config=*
-	start vendor.stflashtool
+on property:ro.vendor.hw.nfc=ese_st
+	start gto_secure_element_hal_service_1_2
 
-on property:ro.vendor.hw.nfc=st && property:persist.vendor.radio.multisim.config=*
-	start vendor.stflashtool
+service gto_secure_element_hal_service_1_2 /vendor/bin/hw/android.hardware.secure_element@1.2-service-gto
+	override
+	class hal
+	user secure_element
+	group secure_element nfc
+	disabled
 
-on property:ro.vendor.hw.nfc=ese_st && property:persist.vendor.radio.multisim.config=*
-	start vendor.stflashtool
+on property:ro.vendor.hw.nfc=true
+	start vendor.st_nfc_hal_service
 
-service vendor.stflashtool /vendor/bin/STFlashTool -c /vendor/etc/st21nfc_conf.txt -P vendor.nfc.fw_status
+on property:ro.vendor.hw.nfc=st
+	setprop persist.vendor.nfc.config_file_name libnfc-hal-st.conf
+	start vendor.st_nfc_hal_service
+
+on property:ro.vendor.hw.nfc=ese_st
+	setprop persist.vendor.nfc.config_file_name libnfc-hal-st-felica.conf
+	start vendor.st_nfc_hal_service
+
+service vendor.st_nfc_hal_service /vendor/bin/hw/android.hardware.nfc-service.st
+	override
+	class hal
 	group nfc
 	user nfc
-	oneshot
 	disabled
