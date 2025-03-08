@@ -489,9 +489,6 @@ ODM_MANIFEST_SKUS += dn dne
 ODM_MANIFEST_DN_FILES := $(DEVICE_PATH)/manifest_eqe_dn.xml
 ODM_MANIFEST_DNE_FILES := $(DEVICE_PATH)/manifest_eqe_dne.xml
 
-# VNDK
-PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := strict
-
 # WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi-service \
