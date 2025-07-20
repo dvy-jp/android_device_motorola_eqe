@@ -391,8 +391,6 @@ PRODUCT_COPY_FILES += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH) \
-    kernel/motorola/sm7550 \
-    kernel/motorola/sm7550-modules \
     hardware/motorola
 
 # Telephony
