@@ -47,11 +47,6 @@
 /(vendor|system/vendor)/bin/hw/motorola\.hardware\.camera\.imgtuner\.aidl-service        u:object_r:hal_imagetuner_default_exec:s0
 /data/vendor/misc/imager                                u:object_r:vendor_camera_data_file:s0
 /sys/devices/platform/soc/soc:qcom,cam-req-mgr/video4linux/video[0-33]/name(/.*)?       u:object_r:vendor_sysfs_jpeg:s0
-/sys/devices/virtual/input/input[0-9]+/calibration_data u:object_r:vendor_sysfs_laser:s0
-/sys/devices/virtual/input/input[0-9]+/do_flush         u:object_r:vendor_sysfs_laser:s0
-/sys/devices/virtual/input/input[0-9]+/enable_ps_sensor u:object_r:vendor_sysfs_laser:s0
-/sys/devices/virtual/input/input[0-9]+/offset           u:object_r:vendor_sysfs_laser:s0
-/sys/devices/virtual/input/input[0-9]+/xtalk            u:object_r:vendor_sysfs_laser:s0
 
 # Capsense
 /sys/devices/virtual/capsense(/.*)?                                                   u:object_r:vendor_sysfs_capsense:s0
@@ -107,7 +102,6 @@
 # Vendor init scripts
 /(vendor|system/vendor)/bin/init\.mmi\.boot\.sh                 u:object_r:vendor_init_hw_exec:s0
 /(vendor|system/vendor)/bin/init\.mmi\.cap\.sh                  u:object_r:vendor_init_hw_exec:s0
-/(vendor|system/vendor)/bin/init\.mmi\.laser\.sh                u:object_r:vendor_mmi_laser_exec:s0
 /(vendor|system/vendor)/bin/init\.mmi\.touch\.sh                u:object_r:vendor_init_touch_exec:s0
 /(vendor|system/vendor)/bin/init\.oem\.hw\.sh                   u:object_r:vendor_init_hw_exec:s0
 
