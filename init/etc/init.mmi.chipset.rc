@@ -35,16 +35,5 @@ on property:sys.boot_completed=1 && property:ro.vendor.build.motfactory=1
 on property:ro.build.type=userdebug
     insmod /vendor/lib/modules/watchdogtest.ko
 
-service vendor.qrtr-lookup-sh /vendor/bin/init.mmi.qrtr-lookup.sh
-    class late_start
-    user root
-    group log system
-    oneshot
-    disabled
-
-on property:sys.boot_completed=1 && property:ro.product.is_production=false
-    start vendor.qrtr-lookup-sh
-
 on init && property:ro.product.is_production=true
     write /sys/kernel/cnss/recovery 1
-
