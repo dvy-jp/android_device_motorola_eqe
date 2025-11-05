@@ -44,7 +44,10 @@
 /(vendor|system/vendor)/lib64/libqmimotext\.so                                           u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib64/libiqi_bridge\.so                                          u:object_r:same_process_hal_file:s0
 /data/vendor/misc/imager                                u:object_r:vendor_camera_data_file:s0
-/sys/devices/platform/soc/soc:qcom,cam-req-mgr/video4linux/video[0-33]/name(/.*)?       u:object_r:vendor_sysfs_jpeg:s0
+/sys/devices/platform/cam_sync/video4linux/video[0-33]/name                    u:object_r:vendor_sysfs_graphics:s0
+/sys/devices/platform/soc/soc:qcom,cam-req-mgr/video4linux/video[0-33]/name    u:object_r:vendor_sysfs_graphics:s0
+/sys/devices/platform/soc/soc:qcom,cam-sync/video4linux/video[0-33]/name       u:object_r:vendor_sysfs_graphics:s0
+/sys/devices/platform/soc/a600000.ssusb/a600000.dwc3/gadget/video4linux/video[0-33]/name          u:object_r:vendor_sysfs_graphics:s0
 
 # Capsense
 /sys/devices/virtual/capsense(/.*)?                                                   u:object_r:vendor_sysfs_capsense:s0
@@ -102,10 +105,6 @@
 /(vendor|system/vendor)/bin/init\.mmi\.cap\.sh                  u:object_r:vendor_init_hw_exec:s0
 /(vendor|system/vendor)/bin/init\.mmi\.touch\.sh                u:object_r:vendor_init_touch_exec:s0
 /(vendor|system/vendor)/bin/init\.oem\.hw\.sh                   u:object_r:vendor_init_hw_exec:s0
-
-# V4L2 Name
-/sys/devices/platform/soc/soc:qcom,cam-sync/video4linux/video([0-9])+/name                u:object_r:vendor_sysfs_v4l2_name:s0
-/sys/devices/platform/soc/soc:qcom,cam-req-mgr/video4linux/video([0-9])+/name             u:object_r:vendor_sysfs_v4l2_name:s0
 
 # Wakeups
 /sys/devices/virtual/input/input[0-9]+/wakeup[0-9]+(/.*)?                                 u:object_r:sysfs_wakeup:s0
