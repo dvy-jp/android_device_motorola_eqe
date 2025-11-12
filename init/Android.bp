@@ -10,6 +10,12 @@ sh_binary {
     src: "bin/init.mmi.bootanim.sh",
 }
 
+sh_binary {
+    name: "init.mmi.touch.sh",
+    src: "bin/init.mmi.touch.sh",
+    vendor: true,
+}
+
 // Init configuration files
 prebuilt_etc {
     name: "init.mmi.charge_only.rc",

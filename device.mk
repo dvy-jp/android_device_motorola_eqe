@@ -211,6 +211,7 @@ PRODUCT_PACKAGES += \
 # Init
 PRODUCT_PACKAGES += \
     init.mmi.bootanim.sh \
+    init.mmi.touch.sh \
     init.mmi.charge_only.rc \
     init.mmi.chipset.rc \
     init.mmi.overlay.rc \
