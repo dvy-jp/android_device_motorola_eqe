@@ -75,6 +75,22 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('libgui_shim_vendor.so'),
     'vendor/lib64/sensors.moto.so': blob_fixup()
         .add_needed('libbase_shim.so'),
+    (
+        'vendor/bin/hw/vendor.qti.camera.provider-service_64',
+        'vendor/bin/poweropt-service',
+        'vendor/lib64/camx.provider-impl.so',
+        'vendor/lib64/libaodoptfeature.so',
+        'vendor/lib64/libapengine.so',
+        'vendor/lib64/libdpps.so',
+        'vendor/lib64/libgamepoweroptfeature.so',
+        'vendor/lib64/liblearningmodule.so',
+        'vendor/lib64/libpowercore.so',
+        'vendor/lib64/libpsmoptfeature.so',
+        'vendor/lib64/libsnapdragoncolor-manager.so',
+        'vendor/lib64/libstandbyfeature.so',
+        'vendor/lib64/libvideooptfeature.so',
+    ): blob_fixup()
+        .replace_needed('libtinyxml2.so', 'libtinyxml2-v34.so'),
 }  # fmt: skip
 
 extract_fns: extract_fns_user_type = {
