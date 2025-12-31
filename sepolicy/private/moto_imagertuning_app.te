@@ -1,3 +1,0 @@
-type moto_imagertuning_app, domain, mlstrustedsubject;
-
-app_domain(moto_imagertuning_app)
