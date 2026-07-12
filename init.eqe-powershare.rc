@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0
+# Power Sharing (carga inalambrica inversa) - eqe
+# Da permiso de escritura al HAL (uid system) sobre el nodo de carga inversa.
+
+on property:sys.boot_completed=1
+    chown system system /sys/class/qcom-battery/wireless_boost_en
+    chmod 0664 /sys/class/qcom-battery/wireless_boost_en
