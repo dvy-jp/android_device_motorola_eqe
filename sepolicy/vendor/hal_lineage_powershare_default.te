@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0
+# El HAL (uid system) escribe el nodo de carga inversa:
+allow hal_lineage_powershare_default vendor_sysfs_battery_supply:dir search;
+allow hal_lineage_powershare_default vendor_sysfs_battery_supply:file rw_file_perms;
+
+# vendor_init hace el chown/chmod en el init rc:
+allow vendor_init vendor_sysfs_battery_supply:file { getattr setattr };
