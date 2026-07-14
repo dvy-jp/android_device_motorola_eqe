@@ -512,4 +512,9 @@ PRODUCT_PACKAGES += \
     firmware_WCNSS_qcom_cfg.ini_symlink
 
 # Inherit from vendor blobs
+
+# eSIM - cajero (LPA) open-source para builds sin Google
+   PRODUCT_PACKAGES += \
+       OpenEUICC
+
 $(call inherit-product, vendor/motorola/eqe/eqe-vendor.mk)
