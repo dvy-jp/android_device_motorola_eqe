@@ -517,3 +517,7 @@ PRODUCT_PACKAGES += \
        OpenEUICC
 
 $(call inherit-product, vendor/motorola/eqe/eqe-vendor.mk)
+
+# eSIM: politica euicc de Motorola (LineageOS org.lineageos.euicc, compatible Vanilla)
+PRODUCT_PACKAGES += \
+    MotoEuicc

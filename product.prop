@@ -21,3 +21,4 @@ ro.mot.build.customerid=global
 ro.vendor.radio.imei.sv=4
 
 import /product/product.${ro.boot.hardware.sku}.prop
+ro.telephony.esim_slot_id=1
