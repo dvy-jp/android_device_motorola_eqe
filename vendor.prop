@@ -264,9 +264,6 @@ vendor.media.omx=0
 # Motorola
 ro.mot.build.customerid=global
 
-# NFC
-persist.vendor.nfc.st.multisim_fw_config=true
-
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
 persist.sys.perf_fwk_enabled=true
