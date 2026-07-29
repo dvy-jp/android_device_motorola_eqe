@@ -16,8 +16,8 @@
 # 'WITH_GAPPS := false' DEBE ir antes del inherit: en vendor/infinity/config/common.mk
 # está como 'WITH_GAPPS ?= true' (?= = "asigná solo si no está definido"), así que si lo
 # definimos primero, queda en false y no entra el gms. (verificado en common.mk)
-WITH_GAPPS := false
-INFINITY_MAINTAINER := Deivy
+WITH_GAPPS ?= false
+INFINITY_MAINTAINER := Dvy-jp
 INFINITY_BUILD := eqe
 
 # Inherit from those products. Most specific first.
