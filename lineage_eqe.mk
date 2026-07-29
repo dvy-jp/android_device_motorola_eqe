@@ -27,3 +27,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     BuildDesc="eqe_g-user 15 V1UMS35H.10-67-7-2 477217-2667a release-keys" \
     BuildFingerprint=motorola/eqe_g/eqe:15/V1UMS35H.10-67-7-2/477217-2667a:user/release-keys \
     DeviceProduct=eqe_g
+
+# Firma con claves propias (build user firmada). Si el archivo no existe (build
+# userdebug/test-keys), el '-include' lo ignora sin romper.
+-include vendor/lineage-priv/keys/keys.mk
