@@ -1,0 +1,16 @@
+# Moto Camera (com.motorola.camera3) corre como priv_app.
+#
+# Necesita usar el servicio de postprocesado ArcSoft para las capturas de foto.
+# Dos permisos:
+#   1) find: localizar el servicio y obtener el handle.
+#   2) binder_call en ambos sentidos: hablar con el proceso que lo implementa
+#      (hal_camera_default) y recibir sus callbacks. Sin esto, la app obtiene el
+#      handle pero no puede completar correctamente el postprocesado.
+#
+# NO se da acceso a vendor_xdsp_device / vendor_qdsp_device: el trabajo DSP lo
+# hace el HAL desde su propio dominio. Este es el modelo cliente/servidor que
+# corresponde a la pila stock (aplicacion <-> hal_camera_default).
+allow priv_app vendor_hal_arcsoftpp_service:service_manager find;
+
+binder_call(priv_app, hal_camera_default)
+binder_call(hal_camera_default, priv_app)

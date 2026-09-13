@@ -22,3 +22,7 @@ ro.vendor.radio.imei.sv=4
 
 import /product/product.${ro.boot.hardware.sku}.prop
 ro.telephony.esim_slot_id=1
+
+# Moto Camera: perfil multimedia de la stock (arregla el cierre al entrar a video).
+# Va en product y NO en vendor: Treble descarta esta propiedad si la define vendor.
+media.settings.xml=/vendor/etc/media_profiles_vendor.xml

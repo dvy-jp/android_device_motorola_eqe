@@ -1,5 +1,6 @@
 ## All proprietary files from this list, unless pinned and noted otherwise,
 ## are from EQE_RETAIL_15_V1UMS35H.10-67-7-2.
+## Camera sections are from EQE_OPENLA_16_W1UMS36H.19-13-4-1.
 
 # ACDB Data
 vendor/etc/acdbdata/crow_idp/IDP_acdb_cal.acdb
@@ -193,6 +194,7 @@ vendor/lib64/liba2d_helper.so
 vendor/lib64/libaidenoiser.so
 vendor/lib64/libaidenoiserv2.so
 vendor/lib64/libanc_supervq.so
+vendor/lib64/libarccamerapostproc_aidl.so
 vendor/lib64/libarcsoft_chi_utils.so
 vendor/lib64/libarcsoft_distortion_correction.so
 vendor/lib64/libarcsoft_hp_detection.so
@@ -1782,3 +1784,21 @@ vendor/lib64/libwfduibcsrcinterface_vendor.so
 vendor/lib64/libwfdutils_proprietary.so
 vendor/lib64/vendor.qti.hardware.wifidisplaysession@1.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.qti.hardware.wifidisplaysessionl@1.0-halimpl.so
+
+# Moto Camera (port desde stock .64R)
+product/priv-app/MotCamera4/MotCamera4.apk;PRESIGNED
+product/app/MotCamera3AI/MotCamera3AI.apk;PRESIGNED
+system/framework/com.motorola.motosignature.jar
+system/framework/moto-core_services.jar
+system/framework/moto-settings.jar
+system/etc/permissions/com.motorola.motosignature.xml
+system/etc/permissions/moto-core_services.xml
+system/etc/permissions/moto-settings.xml
+product/etc/permissions/com.motorola.camera3.xml
+product/etc/permissions/com.motorola.camera3.eqe.xml
+product/etc/permissions/com.motorola.camera3.content.ai.xml
+product/etc/permissions/com.motorola.camera3.adobe_scan.xml
+product/etc/permissions/privapp-permissions-com.motorola.camera3.xml
+product/etc/sysconfig/hiddenapi-whitelist-com.motorola.camera3.xml
+product/etc/sysconfig/initial-package-stopped-states-com.motorola.camera3.xml
+vendor/etc/media_profiles_vendor.xml
