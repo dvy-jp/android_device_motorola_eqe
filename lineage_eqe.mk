@@ -23,6 +23,12 @@ PRODUCT_MODEL := motorola edge 50 pro
 
 PRODUCT_GMS_CLIENTID_BASE := android-motorola
 
+# DVY Project identification. These read-only properties make the origin of
+# the device integration verifiable from every build that uses this tree.
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.dvy.device_integration=DVY_Project \
+    ro.dvy.maintainer=Deivy
+
 PRODUCT_BUILD_PROP_OVERRIDES += \
     BuildDesc="eqe_g-user 15 V1UMS35H.10-67-7-2 477217-2667a release-keys" \
     BuildFingerprint=motorola/eqe_g/eqe:15/V1UMS35H.10-67-7-2/477217-2667a:user/release-keys \
