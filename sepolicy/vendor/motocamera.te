@@ -14,3 +14,5 @@ allow priv_app vendor_hal_arcsoftpp_service:service_manager find;
 
 binder_call(priv_app, hal_camera_default)
 binder_call(hal_camera_default, priv_app)
+
+allow priv_app vendor_hal_dspmanager_hwservice:hwservice_manager find;
