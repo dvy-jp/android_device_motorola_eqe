@@ -1,0 +1,21 @@
+// App minima que solo DECLARA los permisos de Motorola que usa Moto Camera.
+// En el firmware stock los declara el framework parcheado de Motorola
+// (system/etc/permissions/platform.xml los mapea a grupos). En una ROM AOSP no
+// existen, y sin ellos la app de camara no obtiene el grupo de sistema
+// "camera" que abre los dispositivos de imagen (JPEG por hardware, CVP,
+// gemini/ISP, subdevs). Sin ese grupo la app no puede usar su motor de imagen
+// y las fotos salen planas.
+android_app {
+    name: "MotoPermissions",
+    platform_apis: true,
+    manifest: "AndroidManifest.xml",
+    srcs: ["src/**/*.java"],
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    optimize: {
+        enabled: false,
+    },
+    installable: true,
+}

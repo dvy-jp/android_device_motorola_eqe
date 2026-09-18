@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Mapea permisos de Motorola a grupos de sistema, igual que hace el
+  platform.xml del firmware stock. Esto NO declara permisos: solo les asigna
+  grupos a los que ya estan declarados (por el paquete MotoPermissions).
+
+  ACCESS_MOT_IMAGER -> grupo "camera": es lo que abre /dev/jpeg*, /dev/cvp*,
+  /dev/gemini0, /dev/video*, /dev/v4l-subdev* y /dev/msm_camera/*, o sea el
+  motor de imagen de Moto (Mot Imager). Sin esto la app no puede usarlo.
+-->
+<permissions>
+    <permission name="com.motorola.permission.ACCESS_MOT_IMAGER">
+        <group gid="camera" />
+    </permission>
+</permissions>

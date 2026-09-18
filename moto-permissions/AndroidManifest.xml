@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Declara los permisos de Motorola que la app de camara pide. Son los mismos
+  que declara el framework stock de Motorola; aca van con nivel "normal" para
+  que la app los obtenga sin depender de la firma de Motorola.
+  El que importa de verdad es ACCESS_MOT_IMAGER: el archivo moto-permissions.xml
+  lo mapea al grupo de sistema "camera", que es lo que le da acceso a los
+  dispositivos de imagen (JPEG por hardware, CVP, gemini, subdevs).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.motorola.motopermissions">
+
+    <permission android:name="com.motorola.permission.ACCESS_MOT_IMAGER"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.imagertuning.content.ACCESS"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.permission.ACCESS_CHECKIN"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.permission.GET_ZEN_MODE_CONFIG"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.permission.SET_ZEN_MODE_CONFIG"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.permission.MANAGE_NOTIFICATIONS"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.permission.WRITE_SECURE_SETTINGS"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.permission.mobiledesktop.rdp"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.hardware.ACCESS_CLI"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.camera2.content.ai.ACCESS"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.moto.mya.provider.permission.READ_MODES"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.moto.mya.provider.permission.WRITE_MODES"
+        android:protectionLevel="normal" />
+    <permission android:name="com.motorola.ccc.notification.READ_NOTIFICATIONS"
+        android:protectionLevel="normal" />
+
+    <application android:label="Moto permissions" android:hasCode="true" />
+</manifest>
