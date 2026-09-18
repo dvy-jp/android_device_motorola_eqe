@@ -1802,19 +1802,3 @@ product/etc/permissions/privapp-permissions-com.motorola.camera3.xml
 product/etc/sysconfig/hiddenapi-whitelist-com.motorola.camera3.xml
 product/etc/sysconfig/initial-package-stopped-states-com.motorola.camera3.xml
 vendor/etc/media_profiles_vendor.xml
-
-# Extensiones de camara de Moto (CameraX Extensions): estan en el firmware stock
-# A16 y faltaban en esta ROM. La app las usa para su procesado de extension;
-# sin esto cae al pipeline pelado.
-vendor/framework/com.motorola.camera.extensions.jar
-vendor/framework/oat/arm/com.motorola.camera.extensions.odex
-vendor/framework/oat/arm/com.motorola.camera.extensions.vdex
-vendor/framework/oat/arm64/com.motorola.camera.extensions.odex
-vendor/framework/oat/arm64/com.motorola.camera.extensions.vdex
-vendor/etc/permissions/com.motorola.camera.extensions.xml
-vendor/lib/vendor.qti.hardware.camera.postproc@1.0.so
-vendor/lib64/vendor.qti.hardware.camera.postproc@1.0.so
-vendor/lib/vendor.qti.hardware.camera.aon@1.0.so
-vendor/lib64/vendor.qti.hardware.camera.aon@1.0.so
-vendor/lib/android.hardware.camera.common@1.0.so
-vendor/lib64/android.hardware.camera.common@1.0.so
