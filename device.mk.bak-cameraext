@@ -521,16 +521,3 @@ $(call inherit-product, vendor/motorola/eqe/eqe-vendor.mk)
 # eSIM: politica euicc de Motorola (LineageOS org.lineageos.euicc, compatible Vanilla)
 PRODUCT_PACKAGES += \
     MotoEuicc
-
-# Extensiones de camara de Moto (CameraX Extensions) + declaracion de la
-# libreria compartida androidx.camera.extensions.impl. Estan en el firmware
-# stock A16 y faltaban en esta ROM. Se declaran aca y no en el makefile
-# generado del repo vendor, porque ese se regenera con extract-files y
-# perderia estas lineas.
-PRODUCT_COPY_FILES += \
-    vendor/motorola/eqe/proprietary/vendor/framework/com.motorola.camera.extensions.jar:$(TARGET_COPY_OUT_VENDOR)/framework/com.motorola.camera.extensions.jar \
-    vendor/motorola/eqe/proprietary/vendor/framework/oat/arm/com.motorola.camera.extensions.odex:$(TARGET_COPY_OUT_VENDOR)/framework/oat/arm/com.motorola.camera.extensions.odex \
-    vendor/motorola/eqe/proprietary/vendor/framework/oat/arm/com.motorola.camera.extensions.vdex:$(TARGET_COPY_OUT_VENDOR)/framework/oat/arm/com.motorola.camera.extensions.vdex \
-    vendor/motorola/eqe/proprietary/vendor/framework/oat/arm64/com.motorola.camera.extensions.odex:$(TARGET_COPY_OUT_VENDOR)/framework/oat/arm64/com.motorola.camera.extensions.odex \
-    vendor/motorola/eqe/proprietary/vendor/framework/oat/arm64/com.motorola.camera.extensions.vdex:$(TARGET_COPY_OUT_VENDOR)/framework/oat/arm64/com.motorola.camera.extensions.vdex \
-    vendor/motorola/eqe/proprietary/vendor/etc/permissions/com.motorola.camera.extensions.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.motorola.camera.extensions.xml
