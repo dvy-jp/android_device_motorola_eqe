@@ -554,20 +554,26 @@ PRODUCT_COPY_FILES += \
 # volumen (libdlbvol) van en soundfx; libdmshal une el efecto con el servicio.
 # A proposito NO se incluyen los codecs Dolby C2, el Spatializer ni el Game DAP:
 # los codecs C2 eran la causa de los fallos de audio de intentos anteriores.
-# Se declaran aca y no en el makefile generado del repo vendor, porque ese se
-# regenera con extract-files y perderia estas lineas.
+#
+# OJO: los .so y el binario del servicio NO se pueden copiar con
+# PRODUCT_COPY_FILES (el build lo prohibe para archivos ELF, solo acepta
+# librerias/binarios declarados como prebuilt). Se declaran en
+# vendor/motorola/eqe/proprietary/vendor/Android.bp y se piden por nombre.
+# El .rc y el .xml si van como copia, que son archivos de texto.
+PRODUCT_PACKAGES += \
+    libdmshal \
+    libdlbdsservice \
+    libdlbpreg \
+    vendor.dolby.dms-V1-ndk \
+    vendor.dolby.hardware.dms@2.0 \
+    vendor.dolby.hardware.dms@2.1 \
+    libswdap \
+    libdlbvol \
+    vendor.dolby.dms.service
+
 PRODUCT_COPY_FILES += \
-    vendor/motorola/eqe/proprietary/vendor/bin/hw/vendor.dolby.dms.service:$(TARGET_COPY_OUT_VENDOR)/bin/hw/vendor.dolby.dms.service \
     vendor/motorola/eqe/proprietary/vendor/etc/init/dms-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/dms-service.rc \
-    vendor/motorola/eqe/proprietary/vendor/etc/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml \
-    vendor/motorola/eqe/proprietary/vendor/lib64/libdmshal.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libdmshal.so \
-    vendor/motorola/eqe/proprietary/vendor/lib64/libdlbdsservice.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libdlbdsservice.so \
-    vendor/motorola/eqe/proprietary/vendor/lib64/libdlbpreg.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libdlbpreg.so \
-    vendor/motorola/eqe/proprietary/vendor/lib64/vendor.dolby.dms-V1-ndk.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.dolby.dms-V1-ndk.so \
-    vendor/motorola/eqe/proprietary/vendor/lib64/vendor.dolby.hardware.dms@2.0.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.dolby.hardware.dms@2.0.so \
-    vendor/motorola/eqe/proprietary/vendor/lib64/vendor.dolby.hardware.dms@2.1.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.dolby.hardware.dms@2.1.so \
-    vendor/motorola/eqe/proprietary/vendor/lib64/soundfx/libswdap.so:$(TARGET_COPY_OUT_VENDOR)/lib64/soundfx/libswdap.so \
-    vendor/motorola/eqe/proprietary/vendor/lib64/soundfx/libdlbvol.so:$(TARGET_COPY_OUT_VENDOR)/lib64/soundfx/libdlbvol.so
+    vendor/motorola/eqe/proprietary/vendor/etc/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
 
 # Dolby Atmos: app de control (UI) que viene del fork hardware/dolby.
 # El fork vive en su propio namespace de Soong, por eso hay que declararlo.
