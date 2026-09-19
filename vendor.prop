@@ -376,3 +376,11 @@ vendor.camera.aux.packagelist2=com.motorola.ccc,com.android.settings,com.motorol
 # prop el framework no las activa).
 ro.camerax.extensions.enabled=true
 ro.vendor.audio.camera_video_ainr.supported=true
+
+# Dolby Atmos: version del set instalado. Tiene que coincidir con las librerias
+# (el set del fork hardware/dolby es DAX3_3.7.0.8_r1). Las props
+# vendor.audio.dolby.ds2.* ya las pone el crow.mk del HAL de audio, en false
+# igual que el stock.
+persist.vendor.audio_fx.current=dolby
+persist.vendor.audio.dolby.tws_tuning=true
+ro.vendor.dolby.dax.version=DAX3_3.7.0.8_r1

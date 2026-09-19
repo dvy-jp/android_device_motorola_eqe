@@ -124,8 +124,11 @@ AUDIO_HAL_DIR := hardware/qcom-caf/sm8550/audio/primary-hal
 CONFIG_HAL_SRC_DIR := $(AUDIO_HAL_DIR)/configs/crow
 CONFIG_PAL_SRC_DIR := $(AUDIO_HAL_DIR)/../pal/configs/crow
 
+# El audio_effects.xml es una copia del de CLO (configs/crow) con las entradas
+# de Dolby agregadas. Se usa una copia propia en el device tree porque el repo
+# comun de CLO se resincroniza y perderia esas lineas.
 PRODUCT_COPY_FILES += \
-    $(CONFIG_HAL_SRC_DIR)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_crow/audio_effects.xml \
+    $(DEVICE_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_crow/audio_effects.xml \
     $(DEVICE_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(DEVICE_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_crow_qssi/audio_policy_configuration.xml \
     $(CONFIG_PAL_SRC_DIR)/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml
@@ -483,6 +486,7 @@ PRODUCT_COPY_FILES += \
 DEVICE_FRAMEWORK_MANIFEST_FILE += $(DEVICE_PATH)/framework_manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     $(DEVICE_PATH)/device_framework_matrix.xml \
+    hardware/dolby/dolby_framework_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml
 DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
 DEVICE_MANIFEST_SKUS := crow
@@ -543,3 +547,37 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += MotoPermissions
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/moto-permissions/moto-permissions.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/moto-permissions.xml
+
+# Dolby Atmos: se usa el set COMPLETO del fork hardware/dolby (DAX 3.7, DMS
+# HIDL 2.0), no piezas del stock de Moto. La razon: el set del stock A16 (DAX
+# 3.11) crasheaba el servicio de audio en libdlbpreg (PregainSynchronizer) en
+# esta ROM; el del fork es un conjunto coherente pensado para ROMs AOSP.
+# Regla: no mezclar piezas de los dos sets.
+# No se incluyen: codecs Dolby C2, Spatializer, Game DAP ni libswvqe (Sony).
+#
+# El flag de compilacion del HAL va aca, antes de que el build lea los modulos.
+AUDIO_FEATURE_ENABLED_DS2_DOLBY_DAP := true
+
+PRODUCT_SOONG_NAMESPACES += hardware/dolby
+
+PRODUCT_PACKAGES += \
+    vendor.dolby.hardware.dms@2.0-service.xml \
+    vendor.dolby.hardware.dms@2.0 \
+    vendor.dolby.hardware.dms@2.0-impl \
+    vendor.dolby.hardware.dms@2.0-service \
+    libdapparamstorage-dolby \
+    libdlbpreg \
+    libdlbdsservice \
+    libswdap \
+    libdlbvol \
+    dolby_stagefright_foundation_v33 \
+    init.dolby.rc \
+    DolbyAtmos \
+    RemovePackagesDolby \
+    DSPVolumeSynchronizer
+
+# Config del sonido Dolby (3.7, la que corresponde a este set) y el rc del
+# servicio. Los .so no se copian: van como prebuilt desde hardware/dolby.
+PRODUCT_COPY_FILES += \
+    hardware/dolby/configs/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml \
+    hardware/dolby/proprietary/vendor/etc/init/vendor.dolby.hardware.dms@2.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.dolby.hardware.dms@2.0-service.rc
