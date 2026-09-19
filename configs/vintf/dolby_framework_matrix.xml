@@ -4,16 +4,22 @@
 
   Por que hace falta: el servicio se declara en su propio fragmento
   (/vendor/etc/vintf/manifest/dms-service.xml, igual que en la ROM stock), y el
-  chequeo de compatibilidad del OTA exige que todo HAL del equipo este en alguna
-  matriz. Al no ser un HAL del framework, va aca y como opcional: el sistema
-  arranca sin el, pero si esta, se usa.
+  chequeo de compatibilidad del OTA exige que todo HAL del equipo figure en
+  alguna matriz. Al no ser un HAL del framework, va aca y como opcional: el
+  sistema arranca sin el, pero si esta, se usa.
 
-  Formato tomado de hardware/qcom-caf/common/compatibility_matrix_aidl.xml.
+  Ojo con la forma de la entrada: en las matrices, un HAL AIDL se declara con
+  <interface> (nombre + instancia), NO con <fqname> (eso es para el manifest).
+  Con <fqname> el ensamblador la deja vacia y el chequeo sigue fallando.
+  Forma copiada de hardware/qcom-caf/common/compatibility_matrix_aidl.xml.
 -->
-<compatibility-matrix version="1.0" type="framework">
+<compatibility-matrix version="5.0" type="framework">
     <hal format="aidl" optional="true">
         <name>vendor.dolby.dms</name>
         <version>1</version>
-        <fqname>IDms/default</fqname>
+        <interface>
+            <name>IDms</name>
+            <instance>default</instance>
+        </interface>
     </hal>
 </compatibility-matrix>
