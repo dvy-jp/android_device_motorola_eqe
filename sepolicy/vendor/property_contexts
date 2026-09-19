@@ -1,0 +1,6 @@
+# Props de Dolby: en el stock tienen tipo propio (vendor_mot_dolby_prop) y no
+# caen en el tipo generico de props de vendor. Se reproducen igual para que el
+# servicio y el efecto puedan leerlas.
+# Se tomo del vendor_property_contexts del firmware stock A16 (.64R).
+ro.vendor.dolby.                            u:object_r:vendor_mot_dolby_prop:s0
+persist.vendor.audio.dolby.tws_tuning       u:object_r:vendor_mot_dolby_prop:s0

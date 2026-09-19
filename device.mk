@@ -124,8 +124,12 @@ AUDIO_HAL_DIR := hardware/qcom-caf/sm8550/audio/primary-hal
 CONFIG_HAL_SRC_DIR := $(AUDIO_HAL_DIR)/configs/crow
 CONFIG_PAL_SRC_DIR := $(AUDIO_HAL_DIR)/../pal/configs/crow
 
+# El audio_effects.xml es una copia del de CLO (configs/crow) con las entradas
+# de Dolby agregadas al final: si se toma el de CLO tal cual, el efecto DAP
+# nunca se carga aunque los blobs esten instalados. Se usa una copia propia en
+# el device tree en vez de editar el repo comun de CLO, que se resincroniza.
 PRODUCT_COPY_FILES += \
-    $(CONFIG_HAL_SRC_DIR)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_crow/audio_effects.xml \
+    $(DEVICE_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_crow/audio_effects.xml \
     $(DEVICE_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(DEVICE_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_crow_qssi/audio_policy_configuration.xml \
     $(CONFIG_PAL_SRC_DIR)/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml
@@ -543,3 +547,44 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += MotoPermissions
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/moto-permissions/moto-permissions.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/moto-permissions.xml
+
+# Dolby Atmos: stack completo del firmware stock A16 (.64R). Es AIDL
+# (vendor.dolby.dms, IDms/default) y trae su propio rc de init y su fragmento
+# VINTF. El efecto DAP (libswdap, cargado por audioserver) y los listeners de
+# volumen (libdlbvol) van en soundfx; libdmshal une el efecto con el servicio.
+# A proposito NO se incluyen los codecs Dolby C2, el Spatializer ni el Game DAP:
+# los codecs C2 eran la causa de los fallos de audio de intentos anteriores.
+# Se declaran aca y no en el makefile generado del repo vendor, porque ese se
+# regenera con extract-files y perderia estas lineas.
+PRODUCT_COPY_FILES += \
+    vendor/motorola/eqe/proprietary/vendor/bin/hw/vendor.dolby.dms.service:$(TARGET_COPY_OUT_VENDOR)/bin/hw/vendor.dolby.dms.service \
+    vendor/motorola/eqe/proprietary/vendor/etc/init/dms-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/dms-service.rc \
+    vendor/motorola/eqe/proprietary/vendor/etc/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml \
+    vendor/motorola/eqe/proprietary/vendor/lib64/libdmshal.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libdmshal.so \
+    vendor/motorola/eqe/proprietary/vendor/lib64/libdlbdsservice.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libdlbdsservice.so \
+    vendor/motorola/eqe/proprietary/vendor/lib64/libdlbpreg.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libdlbpreg.so \
+    vendor/motorola/eqe/proprietary/vendor/lib64/vendor.dolby.dms-V1-ndk.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.dolby.dms-V1-ndk.so \
+    vendor/motorola/eqe/proprietary/vendor/lib64/vendor.dolby.hardware.dms@2.0.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.dolby.hardware.dms@2.0.so \
+    vendor/motorola/eqe/proprietary/vendor/lib64/vendor.dolby.hardware.dms@2.1.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.dolby.hardware.dms@2.1.so \
+    vendor/motorola/eqe/proprietary/vendor/lib64/soundfx/libswdap.so:$(TARGET_COPY_OUT_VENDOR)/lib64/soundfx/libswdap.so \
+    vendor/motorola/eqe/proprietary/vendor/lib64/soundfx/libdlbvol.so:$(TARGET_COPY_OUT_VENDOR)/lib64/soundfx/libdlbvol.so
+
+# Dolby Atmos: app de control (UI) que viene del fork hardware/dolby.
+# El fork vive en su propio namespace de Soong, por eso hay que declararlo.
+# No se hereda su dolby.mk: ese trae los codecs C2, el Spatializer, blobs de
+# Sony y un servicio HIDL propio que quedan fuera a proposito. Aca solo se
+# piden la app y el paquete que saca MusicFX/AudioFX para que no queden dos
+# paneles de efectos activos. El overlay DolbyFrameworksResCommon tambien se
+# deja afuera: lo unico que cambia es el head tracking del audio espacial, que
+# no se instala.
+PRODUCT_SOONG_NAMESPACES += hardware/dolby
+
+# El manifest VINTF del servicio no se puede copiar con PRODUCT_COPY_FILES
+# (el build lo prohibe para /vendor/etc/vintf). Se agrega como fragmento del
+# manifest del equipo, igual que el resto de los HAL de este device.
+DEVICE_MANIFEST_CROW_FILES += \
+    vendor/motorola/eqe/proprietary/vendor/etc/vintf/manifest/dms-service.xml
+
+PRODUCT_PACKAGES += \
+    DolbyAtmos \
+    RemovePackagesDolby

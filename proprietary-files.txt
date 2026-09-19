@@ -1818,3 +1818,19 @@ vendor/lib/vendor.qti.hardware.camera.aon@1.0.so
 vendor/lib64/vendor.qti.hardware.camera.aon@1.0.so
 vendor/lib/android.hardware.camera.common@1.0.so
 vendor/lib64/android.hardware.camera.common@1.0.so
+
+# Dolby Atmos: stack del firmware stock A16 (.64R). Se copian con
+# PRODUCT_COPY_FILES desde device.mk. No se incluyen los codecs C2, el
+# Spatializer ni el Game DAP.
+vendor/bin/hw/vendor.dolby.dms.service
+vendor/etc/init/dms-service.rc
+vendor/etc/vintf/manifest/dms-service.xml
+vendor/etc/dolby/dax-default.xml
+vendor/lib64/libdmshal.so
+vendor/lib64/libdlbdsservice.so
+vendor/lib64/libdlbpreg.so
+vendor/lib64/vendor.dolby.dms-V1-ndk.so
+vendor/lib64/vendor.dolby.hardware.dms@2.0.so
+vendor/lib64/vendor.dolby.hardware.dms@2.1.so
+vendor/lib64/soundfx/libswdap.so
+vendor/lib64/soundfx/libdlbvol.so

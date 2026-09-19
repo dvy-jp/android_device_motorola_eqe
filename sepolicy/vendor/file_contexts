@@ -24,3 +24,7 @@
 # NFC
 /(vendor|system/vendor)/bin/STFlashTool                                u:object_r:stflashtool_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.nfc@1\.2-service\.st u:object_r:hal_nfc_default_exec:s0
+
+# Dolby: binario del servicio DMS (mismo exec_type que usa el stock).
+# /data/vendor/dolby no lleva tipo propio: se queda como vendor_data_file.
+/(vendor|system/vendor)/bin/hw/vendor\.dolby\.dms\.service                u:object_r:hal_aidl_dms_default_exec:s0
