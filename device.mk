@@ -570,7 +570,7 @@ PRODUCT_PACKAGES += \
     libdlbdsservice \
     libswdap \
     libdlbvol \
-    dolby_stagefright_foundation_v33 \
+    libstagefright_foundation-v33 \
     init.dolby.rc \
     DolbyAtmos \
     RemovePackagesDolby \
