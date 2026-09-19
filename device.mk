@@ -569,7 +569,14 @@ PRODUCT_PACKAGES += \
     vendor.dolby.hardware.dms@2.1 \
     libswdap \
     libdlbvol \
-    vendor.dolby.dms.service
+    vendor.dolby.dms.service \
+    vendor.dolby.dms-service.xml
+
+# El manifest VINTF del servicio NO se fusiona en el manifest del equipo: se
+# instala como fragmento suelto en /vendor/etc/vintf/manifest/, exactamente
+# como lo trae la ROM stock. Fusionado, el chequeo de compatibilidad del OTA se
+# queja de un HAL que la matriz del framework no conoce, y no corresponde
+# agregarlo ahi porque el framework no usa este servicio.
 
 PRODUCT_COPY_FILES += \
     vendor/motorola/eqe/proprietary/vendor/etc/init/dms-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/dms-service.rc \
@@ -584,12 +591,6 @@ PRODUCT_COPY_FILES += \
 # deja afuera: lo unico que cambia es el head tracking del audio espacial, que
 # no se instala.
 PRODUCT_SOONG_NAMESPACES += hardware/dolby
-
-# El manifest VINTF del servicio no se puede copiar con PRODUCT_COPY_FILES
-# (el build lo prohibe para /vendor/etc/vintf). Se agrega como fragmento del
-# manifest del equipo, igual que el resto de los HAL de este device.
-DEVICE_MANIFEST_CROW_FILES += \
-    vendor/motorola/eqe/proprietary/vendor/etc/vintf/manifest/dms-service.xml
 
 PRODUCT_PACKAGES += \
     DolbyAtmos \
