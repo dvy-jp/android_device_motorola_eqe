@@ -376,12 +376,3 @@ vendor.camera.aux.packagelist2=com.motorola.ccc,com.android.settings,com.motorol
 # prop el framework no las activa).
 ro.camerax.extensions.enabled=true
 ro.vendor.audio.camera_video_ainr.supported=true
-
-# Dolby Atmos: props del firmware stock A16 (.64R). audio_fx.current le dice al
-# HAL cual es la cadena de efectos activa y dax.version tiene que coincidir con
-# el dax-default.xml que se copia: si no coinciden, el servicio DMS arranca pero
-# no aplica el perfil. Las props vendor.audio.dolby.ds2.* ya las pone el
-# crow.mk del HAL de audio (en false, igual que stock).
-persist.vendor.audio_fx.current=dolby
-persist.vendor.audio.dolby.tws_tuning=true
-ro.vendor.dolby.dax.version=DAX3_3.11.0.10_r2

@@ -124,12 +124,8 @@ AUDIO_HAL_DIR := hardware/qcom-caf/sm8550/audio/primary-hal
 CONFIG_HAL_SRC_DIR := $(AUDIO_HAL_DIR)/configs/crow
 CONFIG_PAL_SRC_DIR := $(AUDIO_HAL_DIR)/../pal/configs/crow
 
-# El audio_effects.xml es una copia del de CLO (configs/crow) con las entradas
-# de Dolby agregadas al final: si se toma el de CLO tal cual, el efecto DAP
-# nunca se carga aunque los blobs esten instalados. Se usa una copia propia en
-# el device tree en vez de editar el repo comun de CLO, que se resincroniza.
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_crow/audio_effects.xml \
+    $(CONFIG_HAL_SRC_DIR)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_crow/audio_effects.xml \
     $(DEVICE_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(DEVICE_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_crow_qssi/audio_policy_configuration.xml \
     $(CONFIG_PAL_SRC_DIR)/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml
@@ -487,7 +483,6 @@ PRODUCT_COPY_FILES += \
 DEVICE_FRAMEWORK_MANIFEST_FILE += $(DEVICE_PATH)/framework_manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     $(DEVICE_PATH)/device_framework_matrix.xml \
-    $(DEVICE_PATH)/configs/vintf/dolby_framework_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml
 DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
 DEVICE_MANIFEST_SKUS := crow
@@ -548,51 +543,3 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += MotoPermissions
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/moto-permissions/moto-permissions.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/moto-permissions.xml
-
-# Dolby Atmos: stack completo del firmware stock A16 (.64R). Es AIDL
-# (vendor.dolby.dms, IDms/default) y trae su propio rc de init y su fragmento
-# VINTF. El efecto DAP (libswdap, cargado por audioserver) y los listeners de
-# volumen (libdlbvol) van en soundfx; libdmshal une el efecto con el servicio.
-# A proposito NO se incluyen los codecs Dolby C2, el Spatializer ni el Game DAP:
-# los codecs C2 eran la causa de los fallos de audio de intentos anteriores.
-#
-# OJO: los .so y el binario del servicio NO se pueden copiar con
-# PRODUCT_COPY_FILES (el build lo prohibe para archivos ELF, solo acepta
-# librerias/binarios declarados como prebuilt). Se declaran en
-# vendor/motorola/eqe/proprietary/vendor/Android.bp y se piden por nombre.
-# El .rc y el .xml si van como copia, que son archivos de texto.
-PRODUCT_PACKAGES += \
-    libdmshal \
-    libdlbdsservice \
-    libdlbpreg \
-    vendor.dolby.dms-V1-ndk \
-    vendor.dolby.hardware.dms@2.0 \
-    vendor.dolby.hardware.dms@2.1 \
-    libswdap \
-    libdlbvol \
-    vendor.dolby.dms.service \
-    vendor.dolby.dms-service.xml
-
-# El manifest VINTF del servicio NO se fusiona en el manifest del equipo: se
-# instala como fragmento suelto en /vendor/etc/vintf/manifest/, exactamente
-# como lo trae la ROM stock. Fusionado, el chequeo de compatibilidad del OTA se
-# queja de un HAL que la matriz del framework no conoce, y no corresponde
-# agregarlo ahi porque el framework no usa este servicio.
-
-PRODUCT_COPY_FILES += \
-    vendor/motorola/eqe/proprietary/vendor/etc/init/dms-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/dms-service.rc \
-    vendor/motorola/eqe/proprietary/vendor/etc/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
-
-# Dolby Atmos: app de control (UI) que viene del fork hardware/dolby.
-# El fork vive en su propio namespace de Soong, por eso hay que declararlo.
-# No se hereda su dolby.mk: ese trae los codecs C2, el Spatializer, blobs de
-# Sony y un servicio HIDL propio que quedan fuera a proposito. Aca solo se
-# piden la app y el paquete que saca MusicFX/AudioFX para que no queden dos
-# paneles de efectos activos. El overlay DolbyFrameworksResCommon tambien se
-# deja afuera: lo unico que cambia es el head tracking del audio espacial, que
-# no se instala.
-PRODUCT_SOONG_NAMESPACES += hardware/dolby
-
-PRODUCT_PACKAGES += \
-    DolbyAtmos \
-    RemovePackagesDolby

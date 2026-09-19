@@ -1,5 +1,2 @@
 # Camera
 vendor.arcsoft.hardware.camera.postproc.IPostProcService/default          u:object_r:vendor_hal_arcsoftpp_service:s0
-
-# Dolby (etiqueta identica a la del firmware stock)
-vendor.dolby.dms.IDms/default                                             u:object_r:hal_aidl_dms_service:s0
