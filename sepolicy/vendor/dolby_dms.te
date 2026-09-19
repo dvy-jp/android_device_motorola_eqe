@@ -42,6 +42,18 @@ allow hal_aidl_dms_client hal_aidl_dms_server:fd use;
 allow hal_aidl_dms_server hal_aidl_dms_service:service_manager { add find };
 allow hal_aidl_dms_client hal_aidl_dms_service:service_manager find;
 
+# --- Servicemanager ---
+# El servicio se registra en servicemanager y servicemanager verifica el
+# proceso antes de aceptarlo. Sin estas reglas el servicio NO puede registrarse,
+# aborta ("Check failed: status == STATUS_OK") y init lo reinicia en bucle: eso
+# fue exactamente lo que paso en la build del 19-09. Son las mismas reglas que
+# trae el stock (sacadas de su vendor_sepolicy.cil).
+allow hal_aidl_dms_default servicemanager:binder { call transfer };
+allow servicemanager hal_aidl_dms_default:binder { call transfer };
+allow servicemanager hal_aidl_dms_default:dir search;
+allow servicemanager hal_aidl_dms_default:file { read open };
+allow servicemanager hal_aidl_dms_default:process getattr;
+
 # --- Datos propios: /data/vendor/dolby (lo crea el rc del servicio, media:media) ---
 allow hal_aidl_dms_default vendor_data_file:dir { open read write getattr add_name remove_name search ioctl lock };
 allow hal_aidl_dms_default vendor_data_file:file { open read write create getattr setattr lock append unlink rename map ioctl };
