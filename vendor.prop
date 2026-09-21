@@ -387,3 +387,9 @@ vendor.display.foss.config=1
 vendor.display.foss.config_path=/vendor/etc/display/FOSSConfig.xml
 vendor.display.idle_time=0
 persist.sys.sf.force_brightness_capability=1
+
+# Cambio de tasa: la stock deja que lo pida la aplicacion (true). Sin esta
+# prop, el sistema decide la tasa por su cuenta y la cambia en patrones que
+# este panel maneja mal: con minimo 60 y maximo 144 el panel parpadeaba de
+# forma intermitente.
+ro.surface_flinger.enable_frame_rate_override=true
