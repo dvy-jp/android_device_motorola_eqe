@@ -376,3 +376,14 @@ vendor.camera.aux.packagelist2=com.motorola.ccc,com.android.settings,com.motorol
 # prop el framework no las activa).
 ro.camerax.extensions.enabled=true
 ro.vendor.audio.camera_video_ainr.supported=true
+
+# Ruta FOSS del display: es la que usa la stock, junto con
+# /vendor/etc/display/FOSSConfig.xml y la implementacion displaypanel.default.
+# Sin esto el panel parpadea a 144 Hz (sobre todo con brillo bajo).
+ro.vendor.display.foss=1
+ro.vendor.display.paneltype=2
+ro.vendor.display.sensortype=2
+vendor.display.foss.config=1
+vendor.display.foss.config_path=/vendor/etc/display/FOSSConfig.xml
+vendor.display.idle_time=0
+persist.sys.sf.force_brightness_capability=1
