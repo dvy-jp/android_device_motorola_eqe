@@ -15,6 +15,9 @@ $(call inherit-product, device/motorola/eqe/device.mk)
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
+# Inherit ValkyOS identity, version and branding.
+$(call inherit-product, vendor/valkyos/config/common.mk)
+
 PRODUCT_NAME := lineage_eqe
 PRODUCT_DEVICE := eqe
 PRODUCT_MANUFACTURER := motorola
