@@ -23,6 +23,9 @@ BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 # Display
 TARGET_SCREEN_DENSITY := 450
 
+# Boot animation
+TARGET_BOOTANIMATION := vendor/valkyos/bootanimation/bootanimation.zip
+
 # DTB / DTBO
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_USES_QCOM_MERGE_DTBS_SCRIPT := true
