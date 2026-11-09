@@ -1,0 +1,3 @@
+# Public because the Qualcomm vendor policy must see this attribute.
+# Only the Motorola packages selected in seapp_contexts are members.
+attribute moto_camera_xdsp_domain;
