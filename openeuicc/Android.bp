@@ -1,0 +1,28 @@
+//
+// SPDX-FileCopyrightText: 2026 The ValkyOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+// Maven dependencies of OpenEUICC (packages/apps/OpenEUICC) for eqe, stored
+// here so a synced tree builds without downloading anything. Both are
+// Apache-2.0 and checked by SHA-256:
+//   core-3.4.1.jar (com.google.zxing:core)
+//     acfa30338c26267b6cab665509c2251bb96e8350bfcad89d59b949ba77011f8d
+//   zxing-android-embedded-4.3.0.aar (com.journeyapps:zxing-android-embedded)
+//     4ab03353127c34e55cbb80fbc9a34031decbcfb1ec5e8f991944d2d494621a33
+
+java_import {
+    name: "OpenEUICC_com.google.zxing_core",
+    jars: ["core-3.4.1.jar"],
+    sdk_version: "current",
+    min_sdk_version: "28",
+}
+
+android_library_import {
+    name: "OpenEUICC_com.journeyapps_zxing-android-embedded",
+    aars: ["zxing-android-embedded-4.3.0.aar"],
+    sdk_version: "current",
+    min_sdk_version: "28",
+    static_libs: [
+        "OpenEUICC_com.google.zxing_core",
+    ],
+}
