@@ -211,6 +211,10 @@ TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
 TARGET_PRODUCT_PROP += $(DEVICE_PATH)/product.prop
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+ifneq ($(wildcard vendor/valkyos/config/common.mk),)
+# ValkyOS only: show "OEM unlocking" (needed to lock the bootloader with its own key).
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor_valkyos.prop
+endif
 
 # Recovery
 BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
@@ -236,13 +240,37 @@ PRODUCT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
+BOARD_AVB_VBMETA_SYSTEM := system system_ext product
+
+# ValkyOS signed with the builder's own AVB key (vendor/lineage-priv/keys/avb.pem):
+# verification stays on, so the build can boot with a locked bootloader once the
+# key is in avb_custom_key. Every other build (other ROMs, or ValkyOS without its
+# own AVB key) keeps the previous setup unchanged.
+VALKYOS_AVB_KEY := vendor/lineage-priv/keys/avb.pem
+VALKYOS_AVB_SIGNED :=
+ifneq ($(wildcard vendor/valkyos/config/common.mk),)
+ifneq ($(wildcard $(VALKYOS_AVB_KEY)),)
+VALKYOS_AVB_SIGNED := true
+endif
+endif
+
+ifeq ($(VALKYOS_AVB_SIGNED),true)
+VALKYOS_AVB_ALGORITHM ?= SHA256_RSA4096
+BOARD_AVB_KEY_PATH := $(VALKYOS_AVB_KEY)
+BOARD_AVB_ALGORITHM := $(VALKYOS_AVB_ALGORITHM)
+# Not lower than the stock firmware (W1UMS36H: 19), or it won't boot locked.
+BOARD_AVB_ROLLBACK_INDEX := 19
+BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := $(VALKYOS_AVB_KEY)
+BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := $(VALKYOS_AVB_ALGORITHM)
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+else
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 BOARD_AVB_ROLLBACK_INDEX := 17
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := 17
-BOARD_AVB_VBMETA_SYSTEM := system system_ext product
 BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA2048
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+endif
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
 

@@ -1,0 +1,4 @@
+# ValkyOS only (see BoardConfig.mk)
+
+# FRP
+ro.oem_unlock_supported=1
