@@ -258,8 +258,10 @@ ifeq ($(VALKYOS_AVB_SIGNED),true)
 VALKYOS_AVB_ALGORITHM ?= SHA256_RSA4096
 BOARD_AVB_KEY_PATH := $(VALKYOS_AVB_KEY)
 BOARD_AVB_ALGORITHM := $(VALKYOS_AVB_ALGORITHM)
-# Not lower than the stock firmware (W1UMS36H: 19), or it won't boot locked.
-BOARD_AVB_ROLLBACK_INDEX := 19
+# Must not be lower than any value the bootloader has stored (Motorola does not
+# reset it on unlock). The stock W1UMS36H uses 19, which was not enough: use the
+# security patch date, like vbmeta_system, so it is always higher.
+BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := $(VALKYOS_AVB_KEY)
 BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := $(VALKYOS_AVB_ALGORITHM)
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
