@@ -355,9 +355,6 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/configs/nfcee_access.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/nfcee_access.xml
 
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/configs/android.hardware.strongbox_keystore_v4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.strongbox_keystore.xml
-
-PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/configs/product_privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml
 
 PRODUCT_COPY_FILES += \

@@ -26,3 +26,7 @@ allow moto_camera_app {
 # Native components loaded from the APK and its private directory.
 allow moto_camera_app system_linker_exec:file execute_no_trans;
 allow moto_camera_app privapp_data_file:file execute;
+
+# Moto Camera looks up the telephony services (phone, isub), which it does
+# not need to take pictures. Keep them denied, but do not flood the log.
+dontaudit moto_camera_app radio_service:service_manager find;
