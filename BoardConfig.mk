@@ -214,6 +214,9 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 ifneq ($(wildcard vendor/valkyos/config/common.mk),)
 # ValkyOS only: show "OEM unlocking" (needed to lock the bootloader with its own key).
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor_valkyos.prop
+# ValkyOS only: Motorola LightningLaunch already boosts app launches, so the
+# ValkyOS power HAL does not send the same launch hint a second time.
+$(call soong_config_set_bool,qtipower,skip_launch_hint,true)
 endif
 
 # Recovery
